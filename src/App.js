@@ -11,6 +11,8 @@ import MovieDetails from './pages/MovieDetails';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import LandingPage from './pages/LandingPage';
+import SignUp from './pages/SignUp';
 
 // Create a wrapper component to handle conditional Navbar rendering
 function AppContent() {
@@ -87,18 +89,20 @@ function AppContent() {
     setDarkMode(!darkMode);
   };
 
-  // Don't show Navbar on login page
-  const showNavbar = location.pathname !== '/login';
+  // Don't show Navbar on login page, signup page, or landing page
+  const showNavbar = !['/login', '/signup', '/'].includes(location.pathname);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {showNavbar && <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </ThemeProvider>
